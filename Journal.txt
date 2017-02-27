@@ -1,0 +1,8 @@
+Feb 23-25, 2017
+
+I installed CentOS 6.8 on my netbook Asus EeePC 1000 after upgrading the memory up 2Gb RAM.
+I also installed Git, Java JDK 1.8 and Apace Ant 1.9.9.
+
+Feb 27, 2017
+
+I spent some time on Xubuntu 12.04. I installed it on laptop Samsung P-28 and forced to work USB Wi-Fi TP-Link TL-WN723N.
