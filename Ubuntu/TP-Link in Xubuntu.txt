@@ -1,0 +1,9 @@
+   My way to force to work TP-Link (TL-WN723N) in Xubuntu 12.04
+
+1. https://help.ubuntu.com/community/WifiDocs/Driver/Ndiswrapper
+2. http://www.tp-linkru.com/download/TL-WN723N.html
+3. http://askubuntu.com/questions/132894/how-to-fix-ndiswrapper-not-found
+4. http://askubuntu.com/questions/296994/how-to-get-the-tp-link-tl-wn723n-working-on-ubuntu
+   It's working! I could use only 4th guide
+
+   Later when I upgraded system I got new linux kernel (3.2.0-123-generic, before I had 3.2.0-58) and my usb-wifi stopped working. I booted from a previous version of the kernel usimg the grub-menu.
