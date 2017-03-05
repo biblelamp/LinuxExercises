@@ -1,12 +1,10 @@
-https://geektimes.ru: Linux, Программирование, Ноутбуки
-
 Готовлю CentOS 6.8 к работе
 
-Впервые с Linux я столкнулся в 2005 году, это был Debian. Потом последовал долгий период с Ubuntu Linux, ради изучения которого в марте 2009 был приобретён нетбук Asus EeePC 1000. В 2010 близко познакомился с ALT Linux и даже стал майнтейнером пакета basic256 (http://sisyphus.ru/ru/srpm/Sisyphus/basic256).
+Впервые я столкнулся с Linux в 2005 году, это был Debian. Потом последовал долгий период с Ubuntu Linux, ради которого в марте 2009 приобрел нетбук Asus EeePC 1000. В 2010 близко познакомился с ALT Linux, участвовал в «Школьном проекте» (https://habrahabr.ru/post/105455/) и даже стал майнтейнером пакета basic256 (http://sisyphus.ru/ru/srpm/Sisyphus/basic256).
 
-Последние пару лет мой EeePC с Ubuntu мирно отдыхал в глубине шкафa. И тут появился повод стряхнуть с него пыль. Возникла задача познакомится поближе с CentOS Linux и протестировать там примеры для моего вебинара по Apache Ant.
+Последние несколько лет мой EeePC с Ubuntu мирно отдыхал в глубине шкафa. И тут появился повод стряхнуть с него пыль. Возникла задача познакомиться с CentOS Linux и протестировать там примеры для вебинара по Apache Ant.
 
-Посетив www.centos.org, останавливаюсь на версии 6.8. На странице  http://isoredirect.centos.org/centos/6/isos/i386/ выбираю сервер с образами дисков и скачиваю файл CentOS-6.8-i386-LiveCD.iso. С помощью Rufus (https://rufus.akeo.ie) создаю загрузочный USB и успешно инсталлирую CentOS 6.8 на свой Asus EeePC. Процесс очень простой. Вид старого доброго GNOME в тёмно-синей гамме пробуждает ностальгию…
+Посетив www.centos.org, останавливаюсь на версии 6.8. На странице  http://isoredirect.centos.org/centos/6/isos/i386/ выбираю сервер с образами дисков и скачиваю файл CentOS-6.8-i386-LiveCD.iso. С помощью Rufus (https://rufus.akeo.ie) создаю загрузочный USB и успешно инсталлирую CentOS 6.8 на свой Asus EeePC. Процесс очень простой. Тёмно-синяя цветовая гамма старого доброго GNOME ласкает взгляд…
 
 Какие инструменты (программы/пакеты) мне нужны? Пока только три: Java JDK, Apache Ant и Git. Начинаю с синхронизации и обновления индексных файлов пакетов, памятуя что вместо apt-get (в Ubuntu) в CentOS мы используем yum:
 
@@ -14,28 +12,29 @@ https://geektimes.ru: Linux, Программирование, Ноутбуки
 [sudo] password for lamp:
 lamp is not in the sudoers file. This incident will be reported.
 
-Вот это новость… В отличие от Ubuntu, простой пользователь не обладает правами выполнения команд от имени root. Изучив https://wiki.centos.org/TipsAndTricks/BecomingRoot, решаю использовать «quick and dirty way». Консольным vi редактирую файл sudoers. Но сначала делаю его доступным для перезаписи. Предварительно перейдя в режим root (требуется ввести root пароль, заданный при инсталляции):
+Вот это новость… В отличие от Ubuntu, простой пользователь не обладает правами выполнения команд от имени root. Изучив https://wiki.centos.org/TipsAndTricks/BecomingRoot, решаю использовать «quick and dirty way». Консольным vi редактирую файл sudoers. Но сначала делаю его доступным для перезаписи. Для этого перехожу в режим root (после su ввожу root пароль, заданный мной при инсталляции):
 
 [lamp@localhost ~]$ su
 Password:
 [root@localhost lamp]# chmod +w /etc/sudoers
 [root@localhost lamp]# vi /etc/sudoers
 
-Нахожу в файле строку root ALL=(ALL) ALL и добавляю (предварительно нажав i) ниже подобную строку, только вместо root пишу lamp, получается так:
+Нахожу в файле строку root ALL=(ALL) ALL и добавляю (предварительно нажав i и войдя в режим вставки текста) ниже подобную строку, только вместо root пишу lamp, получается так:
 
 root	ALL=(ALL)	ALL
 lamp	ALL=(ALL)	ALL
 
-Нажимаю Esc и выхожу из файла с сохранением (:wq). И покидаю режима root командой exit. Теперь я могу выполнять административные команды через sudo вводя свой пользовательский пароль. Итак, снова:
+Нажимаю Esc и выхожу из файла с сохранением (:wq). Покидаю режим root командой exit. Теперь можно выполнять административные команды через sudo, вводя пользовательский пароль. Итак, снова:
 
 [lamp@localhost ~]$ sudo yum update
 [sudo] password for lamp:
 
-Ввожу свой пароль, всё работает, yum обновляет индексы и заодно предлагает обновить кое-какие пакеты, скачав 197 Мб. Отвечаю N, обновиться всегда успею.
+Ввожу пароль, всё работает, yum обновляет индексы и заодно предлагает обновить кое-какие пакеты, скачав 197 Мб. Отвечаю N, это немного подождёт.
 
-Теперь займусь Java JDK. Погуглив и изучив www.digitalocean.com/community/tutorials/how-to-install-java-on-centos-and-fedora принимаю решение ставить Oracle Java 8 JDK. С сайта www.oracle.com скачиваю пакет jdk-8u121-linux-i586.rpm и затем делаю локальную установку и проверяю результат:
+Теперь займусь Java JDK. Погуглив и изучив один тьюториал (www.digitalocean.com/community/tutorials/how-to-install-java-on-centos-and-fedora), принимаю решение ставить Oracle Java 8 JDK. С сайта www.oracle.com скачиваю пакет jdk-8u121-linux-i586.rpm, делаю локальную установку и проверяю результат:
 
-[lamp@localhost ~]$ sudo yum localinstall  jdk-8u121-linux-i586.rpm
+[lamp@localhost ~]$ sudo yum localinstall jdk-8u121-linux-i586.rpm
+[lamp@localhost ~]$ rm jdk-8u121-linux-i586.rpm
 [lamp@localhost ~]$ javac -version
 javac 1.8.0_121
 
@@ -44,11 +43,11 @@ java version "1.8.0_121"
 Java(TM) SE Runtime Environment (build 1.8.0_121-b13)
 Java HotSpot(TM) Client VM (build 25.121-b13, mixed mode, sharing)
 
-Очередь за Apace Ant. Пробую установить из стандартного репозитария:
+JDK есть, очередь за Apache Ant. Пробую поставить из репозитария:
 
 [lamp@localhost ~]$ sudo yum install ant
 
-и yum предлагает скачать 62 Мб и установить 14 пакетов зависимостей, при этом ant это только 2.2 Мб. При этом Google подсказывает - это будет версия 1.7.1 что меня совершенно не устраивает. После недолго поиска нахожу скрипт, слегка редактирую его:
+и yum предлагает скачать 62 Мб и установить 14 пакетов зависимостей, где сам ant только лишь 2.2 Мб. При этом Google слегка намекает — это версия 1.7.1 что меня совершенно не устраивает (там нет junit). После недолго поиска нахожу подходящий скрипт, позволяющий скачать и установить свежую версию. Слегка редактирую его под себя:
 
 # download and install
 antversion=1.9.9
@@ -64,20 +63,20 @@ ant -version
 # cleanup
 rm apache-ant-${antversion}-bin.tar.gz
 
-и сохраняю в домашнем каталоге, затем:
+и сохраняю в домашнем каталоге, затем запускаю:
 
 [lamp@localhost ~]$ chnod +x installantoncentos.sh
 [lamp@localhost ~]$ ./installantoncentos.sh
 
-Проверяю результат:
+и проверяю результат:
 
 [lamp@localhost ~]$ ant -version
 Apache Ant(TM) version 1.9.9 compiled on February 2 2017
 
-Git ставлю из стандартного репозитария и проверяю результат:
+Git просто ставлю из репозитария:
 
 [lamp@localhost ~]$ sudo yum install git
 [lamp@localhost ~]$ git --version
 git version 1.7.1
 
-Итак, нужные инструменты установлены и можно приступать к тестированию примеров для вебинара. Но это уже следующая история…
+Итак, нужные инструменты готовы и можно приступать к тестированию примеров для вебинара. Но это уже другая история (https://habrahabr.ru/post/323204/).
