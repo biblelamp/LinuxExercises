@@ -1,6 +1,6 @@
 Готовлю CentOS 6.8 к работе
 
-С Linux я познакомился в 2005 году, это был Debian. Потом последовал долгий роман с Ubuntu Linux, ради которого в марте 2009 приобрел нетбук Asus EeePC 1000. В 2010 близко сошёлся с ALT Linux, участвовал в «Школьном проекте» (https://habrahabr.ru/post/105455/) и даже стал майнтейнером пакета basic256 (http://sisyphus.ru/ru/srpm/Sisyphus/basic256).
+С Linux мы пересеклись в 2005 году, это был Debian. Потом последовал долгий роман с Ubuntu Linux, ради которого в марте 2009 приобрел нетбук Asus EeePC 1000. В 2010 начал сотрудничать с ALT Linux, участвовал в «Школьном проекте» (http://freeschool.altlinux.ru/) (продвигали Linux в школах (https://habrahabr.ru/post/105455/)) и стал майнтейнером пакета basic256 (http://sisyphus.ru/ru/srpm/Sisyphus/basic256).
 
 Последние несколько лет мой EeePC с Ubuntu мирно отдыхал в глубине шкафа. И тут появился повод стряхнуть с него пыль. Возникла задача познакомиться с CentOS Linux и протестировать там примеры для вебинара (https://youtu.be/802v6EhYRv4) по Apache Ant.
 
@@ -69,7 +69,7 @@ rm ${antname}-${antversion}-bin.tar.gz
 
 сохраняю в домашнем каталоге, затем запускаю:
 
-[lamp@localhost ~]$ chnod +x installantoncentos.sh
+[lamp@localhost ~]$ chmod +x installantoncentos.sh
 [lamp@localhost ~]$ ./installantoncentos.sh
 
 в последней строке вижу результат команды ant -version:
@@ -82,4 +82,4 @@ Git ставлю из репозитария:
 [lamp@localhost ~]$ git --version
 git version 1.7.1
 
-Итак, нужные инструменты готовы и можно приступать к тестированию примеров для вебинара. Но это уже другая история (https://habrahabr.ru/post/323204/)…
+Итак, нужные инструменты готовы и можно приступать к тестированию примеров для вебинара. Но это будет уже другая история (https://habrahabr.ru/post/323204/)…
