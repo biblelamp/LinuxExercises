@@ -1,0 +1,85 @@
+Preparing CentOS 6.8 for work
+
+I came across Linux in 2005, it was Debian. Then followed a love affair with Ubuntu, for which in March 2009 I purchased a netbook Asus EeePC 1000. In 2010 I began to contribute to ALT Linux (www.altlinux.com) participating in the “School Project” (www.altlinux.com/en/solutions/school) and even became basic256 (http://sisyphus.ru/ru/srpm/Sisyphus/basic256) package maintainer.
+
+The last few years my EeePC with Ubuntu peacefully rested deep in my cupboard. And then there was a chance to clean off the dust from it. There was a task to get acquainted with CentOS Linux and test examples for my webinar “Apache Ant – quick start”.
+
+Visiting www.centos.org, I stop at version 6.8. On http://isoredirect.centos.org/centos/6/isos/i386/ page I select the server with disk images, and download files CentOS-6.8-i386-LiveCD.iso. With the help of Rufus (https://rufus.akeo.ie) create a bootable USB and successfully install the CentOS 6.8 on my Asus EeePC. The process is very simple. A dark-blue colors of the good old GNOME are pleasing my eyes.
+
+What tools (programs/packages) do I need? So far, I need only three: Java JDK, Apache Ant and Git. I begin to synchronize and update package index files, keeping in mind that instead of apt-get (in Ubuntu) on CentOS they use yum:
+
+[lamp@localhost ~]$ sudo yum update
+[sudo] password for lamp:
+lamp is not in the sudoers file. This incident will be reported.
+
+Here is the news… Unlike Ubuntu, unprivileged user cannot use by default via sudo the commands with root privilege. Learning https://wiki.centos.org/TipsAndTricks/BecomingRoot I decide to use the “quick and dirty way” by editing the file /etc/sudoers. To do this the root has visudo command (thanks to tips of experienced colleagues). I pass on in the root account (after su command I enter the root password, which I have set during the installation):
+
+[lamp@localhost ~]$ su
+Password:
+[root@localhost lamp]# visudo
+
+I find the line “root ALL=(ALL) ALL” in the file and add (pre-pressing the “I” and entering into insert mode) a similar line, but instead of root  I'm writing lamp, it turns this way:
+
+root	ALL=(ALL)	ALL
+lamp	ALL=(ALL)	ALL
+
+I press Esc and go out with saving (:wq). I leave root account using exit. Now I can give privileged using sudo and my password. And I repeat:
+
+[lamp@localhost ~]$ sudo yum update
+[sudo] password for lamp:
+
+I enter my password, everything works. The yum updates indexes, and offers to upgrade some packages by downloading about 197 MB. I answer N (No); it can wait a little.
+
+Time turn to Java JDK. In front of me there is a dilemma: install the oracle-jdk or openjdk. Thanks to advice of more experienced colleagues I'm inclined to get openjdk. I use the command yum search to find the name of the package to be installed. Surely, I take the latest version:
+
+[lamp@localhost ~]$ sudo yum search jdk
+...
+java-1.8.0-openjdk-devel.i686 : OpenJDK Development Environment
+...
+[lamp@localhost ~]$ sudo yum install java-1.8.0-openjdk-devel
+...
+[lamp@localhost ~]$ javac -version
+javac 1.8.0_121
+[lamp@localhost ~]$ java -version
+openjdk version "1.8.0_121"
+OpenJDK Runtime Environment (build 1.8.0_121-b13)
+OpenJDK Server VM (build 25.121-b13, mixed mode)
+
+JDK is there, now it is the time for Apache Ant. I'm trying to get it from repository:
+
+[lamp@localhost ~]$ sudo yum install ant
+
+…and yum offers to download about 60 MB and install 10 dependency packages, where ant takes only 2.2 MB. However, Google slightly hints – is will be the version 1.7.1 which does not suit me at all (it nas no junit). After a short search I find a suitable script that allows me to download and install the latest version. I edit it a little for myself:
+
+# download and install
+antname=apache-ant
+antserver=http://apache-mirror.rbc.ru/pub/apache
+antversion=1.10.1
+wget ${antserver}/ant/binaries/${antname}-${antversion}-bin.tar.gz
+sudo tar xvfvz ${antname}-${antversion}-bin.tar.gz -C /opt
+sudo ln -sfn /opt/${antname}-${antversion} /opt/ant
+sudo sh -c 'echo ANT_HOME=/opt/ant >> /etc/environment'
+sudo ln -sfn /opt/ant/bin/ant /usr/bin/ant
+
+# check installation
+ant -version
+
+# cleanup
+rm ${antname}-${antversion}-bin.tar.gz
+
+I save the script in the home directory and then run:
+
+[lamp@localhost ~]$ chnod +x installantoncentos.sh
+[lamp@localhost ~]$ ./installantoncentos.sh
+
+I see the last line which is the result of ant -version command:
+
+Apache Ant(TM) version 1.10.1 compiled on February 2 2017
+
+I take Git from the repository:
+
+[lamp@localhost ~]$ sudo yum install git
+[lamp@localhost ~]$ git --version
+git version 1.7.1
+
+So, the tools are ready and I can start testing examples for my webinar. But this is another story…
