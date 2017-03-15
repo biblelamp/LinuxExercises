@@ -3,6 +3,16 @@ Feb 23-25, 2017
 I installed CentOS 6.8 on my netbook Asus EeePC 1000 after upgrading the memory up 2Gb RAM.
 I also installed Git, Java JDK 1.8 and Apace Ant 1.9.9.
 
+The result of this work (a little later) was the writing of the article in Russian (https://habrahabr.ru/post/323246/) and in English (https://developers.redhat.com/blog/2017/03/14/preparing-centos-6-8-for-work/)
+
 Feb 27, 2017
 
 I spent some time on Xubuntu 12.04. I installed it on laptop Samsung P-28 and forced to work USB Wi-Fi TP-Link TL-WN723N.
+
+Mar 09, 2017
+
+I restore my access as maintainer in ALT Linux
+
+Mar 15, 2017
+
+I started to write notes of the mainteiner about my current experiens in ALT Linux
