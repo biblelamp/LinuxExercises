@@ -1,0 +1,17 @@
+qwit:
+    Qt4 cross-platform client for Twitter
+
+Home page:
+    https://code.google.com/archive/p/qwit/
+
+Last version:
+    1.1 pre2 dated Aug 11, 2010
+
+Latest package:
+    1.1-alt0.pre2 dated Mar 3, 2011
+
+Sisyphus:
+    http://sisyphus.ru/ru/srpm/Sisyphus/qwit
+
+Bug:
+    https://bugzilla.altlinux.org/show_bug.cgi?id=28015

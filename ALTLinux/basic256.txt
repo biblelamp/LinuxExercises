@@ -1,0 +1,21 @@
+basic256:
+    BASIC-256 is a simple BASIC IDE that allows young children to learn to program.
+    It was written in response to David Brin's article "Why Johnny Can't Code"
+
+Home page:
+    http://kidbasic.sourceforge.net
+
+Last version:
+    1.99.99.74 dated Feb 12, 2017
+
+Latest package:
+    0.9.6-alt6.1.qa1 dated Apr 11, 2016
+
+Sisyphus:
+    http://sisyphus.ru/ru/srpm/Sisyphus/basic256
+
+Bug(s):
+    https://bugzilla.altlinux.org/show_bug.cgi?id=24170
+    https://bugzilla.altlinux.org/show_bug.cgi?id=24123
+    https://bugzilla.altlinux.org/show_bug.cgi?id=24033
+    https://bugzilla.altlinux.org/show_bug.cgi?id=24014
