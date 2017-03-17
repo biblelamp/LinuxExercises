@@ -1,0 +1,57 @@
+corebird:
+    Native Gtk+ Twitter client for the Linux desktop
+
+Home page:
+    http://corebird.baedert.org/
+
+Gitrhub:
+    https://github.com/baedert/corebird
+
+Last version:
+    1.4.2
+
+Journal of first building:
+    cloned the repo and tried to build
+    it asked command autoconf and aclocal
+    I installed autoconf, automake, rpm-build
+    ./autogen.sh --prefix=/usr
+    configure: error: valac >= 0.28.0 is required
+    apt-get install /usr/bin/valac
+
+    Unfinished article from Andrey Cherepanov
+    'Building a package from scratch' https://www.altlinux.org/%D0%A1%D0%B1%D0%BE%D1%80%D0%BA%D0%B0_%D0%BF%D0%B0%D0%BA%D0%B5%D1%82%D0%B0_%D1%81_%D0%BD%D1%83%D0%BB%D1%8F
+
+    Quick Guide to Building a Package    https://www.altlinux.org/%D0%9A%D1%80%D0%B0%D1%82%D0%BA%D0%BE%D0%B5_%D1%80%D1%83%D0%BA%D0%BE%D0%B2%D0%BE%D0%B4%D1%81%D1%82%D0%B2%D0%BE_%D0%BF%D0%BE_%D1%81%D0%B1%D0%BE%D1%80%D0%BA%D0%B5_%D0%BF%D0%B0%D0%BA%D0%B5%D1%82%D0%B0
+    
+    1. Installation packages rpm-build and gear:
+    apt-get install rpm-build gear
+
+    sudo apt-get install /usr/bin/add_changelog
+
+    Installation heasher:
+    apt-get install heasher
+    https://www.altlinux.org/Hasher
+
+    2. Preparing gear repository:
+
+    mkdir corebird
+    cd corebird
+    git init
+    md .gear
+    echo 'tar.gz: corebird' > .gear/rules
+    git clone https://github.com/baedert/corebird
+    touch corebird.spec
+
+    3. Writing spec file
+    https://www.altlinux.org/SampleSpecs
+
+    Building:
+    gear-hsh [-v]
+
+    OR better:
+    
+    Re-creating a sandbox from scratch:
+    hsh --initroot [-v]
+
+    Building:
+    gear --hasher hsh-rebuild [-v]
