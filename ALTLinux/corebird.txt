@@ -38,20 +38,50 @@ Journal of first building:
     cd corebird
     git init
     md .gear
-    echo 'tar.gz: corebird' > .gear/rules
+    echo 'tar: corebird' > .gear/rules
     git clone https://github.com/baedert/corebird
     touch corebird.spec
 
     3. Writing spec file
     https://www.altlinux.org/SampleSpecs
 
-    Building:
+    4. Add abd commit all changes:
+    git add .
+    gear-commit
+    
+    5. Building:
     gear-hsh [-v]
 
-    OR better:
-    
+    OR more faster:
+
     Re-creating a sandbox from scratch:
     hsh --initroot [-v]
 
     Building:
     gear --hasher hsh-rebuild [-v]
+
+    6. Note: to clone a branch is better than master (by default)
+    git clone -b <branch_name> <repo_address>
+
+    Start with logging to file:
+    gear-hsh -v 2>&1 | tee logfile.txt
+
+    7. After success building - send to Sisyphus.ru:
+    ssh git.alt init-db corebird
+    git remote add up git.alt:packages/corebird
+    gear-create-tag
+    git push up master `git describe`
+    ssh gyle.alt build --test-only corebird `git describe`
+
+    8. After corrections
+    gear-commit -a --amend
+    gear-create-tag -f
+    git push -f up master `git describe`
+    ssh gyle.alt build --test-only corebird `git describe`
+
+    9. Final build
+    ssh gyle.alt task run <N_task>
+    
+    10. Clean up after myself
+    ssh gyle.alt task ls
+    ssh gyle.alt task rm <N_task>
