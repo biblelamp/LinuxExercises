@@ -16,72 +16,80 @@ Journal of first building:
     I installed autoconf, automake, rpm-build
     ./autogen.sh --prefix=/usr
     configure: error: valac >= 0.28.0 is required
-    apt-get install /usr/bin/valac
+    $ apt-get install /usr/bin/valac
 
     Unfinished article from Andrey Cherepanov
     'Building a package from scratch' https://www.altlinux.org/%D0%A1%D0%B1%D0%BE%D1%80%D0%BA%D0%B0_%D0%BF%D0%B0%D0%BA%D0%B5%D1%82%D0%B0_%D1%81_%D0%BD%D1%83%D0%BB%D1%8F
 
     Quick Guide to Building a Package    https://www.altlinux.org/%D0%9A%D1%80%D0%B0%D1%82%D0%BA%D0%BE%D0%B5_%D1%80%D1%83%D0%BA%D0%BE%D0%B2%D0%BE%D0%B4%D1%81%D1%82%D0%B2%D0%BE_%D0%BF%D0%BE_%D1%81%D0%B1%D0%BE%D1%80%D0%BA%D0%B5_%D0%BF%D0%B0%D0%BA%D0%B5%D1%82%D0%B0
-    
-    1. Installation packages rpm-build and gear:
-    apt-get install rpm-build gear
 
-    sudo apt-get install /usr/bin/add_changelog
+1. Installation packages rpm-build and gear:
+    $ sudo apt-get install rpm-build gear
+    $ sudo apt-get install /usr/bin/add_changelog
 
     Installation heasher:
-    apt-get install heasher
+    $ sudo apt-get install heasher
     https://www.altlinux.org/Hasher
 
-    2. Preparing gear repository:
+2. Preparing gear repository:
+    $ mkdir corebird
+    $ cd corebird
+    $ git init
+    $ md .gear
+    $ echo 'tar: corebird' > .gear/rules
+    $ git clone https://github.com/baedert/corebird
+    $ touch corebird.spec
+    ...and writing corebird.spec (quite difficult)
 
-    mkdir corebird
-    cd corebird
-    git init
-    md .gear
-    echo 'tar: corebird' > .gear/rules
-    git clone https://github.com/baedert/corebird
-    touch corebird.spec
-
-    3. Writing spec file
+3. Writing spec file
     https://www.altlinux.org/SampleSpecs
 
-    4. Add abd commit all changes:
-    git add .
-    gear-commit
-    
-    5. Building:
-    gear-hsh [-v]
+4. Add abd commit all changes:
+    $ git add .
+    $ gear-commit
+
+5. Building:
+    $ gear-hsh [-v]
 
     OR more faster:
 
     Re-creating a sandbox from scratch:
-    hsh --initroot [-v]
+    $ hsh --initroot [-v]
 
     Building:
-    gear --hasher hsh-rebuild [-v]
+    $ gear --hasher hsh-rebuild [-v]
 
-    6. Note: to clone a branch is better than master (by default)
-    git clone -b <branch_name> <repo_address>
+6. Note: to clone a branch is better than master (by default)
+    $ git clone -b <branch_name> <repo_address>
 
     Start with logging to file:
-    gear-hsh -v 2>&1 | tee logfile.txt
+    $ gear-hsh -v 2>&1 | tee logfile.txt
 
-    7. After success building - send to Sisyphus.ru:
-    ssh git.alt init-db corebird
-    git remote add up git.alt:packages/corebird
-    gear-create-tag
-    git push up master `git describe`
-    ssh gyle.alt build --test-only corebird `git describe`
+7. After success building - to send package to Sisyphus.ru:
+    $ ssh git.alt init-db corebird
+    $ git remote add up git.alt:packages/corebird
+    $ gear-create-tag
+    $ git push up master `git describe`
+    $ ssh gyle.alt build --test-only corebird `git describe`
 
-    8. After corrections
-    gear-commit -a --amend
-    gear-create-tag -f
-    git push -f up master `git describe`
-    ssh gyle.alt build --test-only corebird `git describe`
+8. After corrections
+    $ gear-commit -a --amend
+    $ gear-create-tag -f
+    $ git push -f up master `git describe`
+    $ ssh gyle.alt build --test-only corebird `git describe`
 
-    9. Final build
-    ssh gyle.alt task run <N_task>
-    
-    10. Clean up after myself
-    ssh gyle.alt task ls
-    ssh gyle.alt task rm <N_task>
+9. Final build
+    $ ssh gyle.alt task run <N_task>
+
+10. Clean up after myself
+    $ ssh gyle.alt task ls
+    $ ssh gyle.alt task rm <N_task>
+
+11. Backporting to p8 branch
+    $ git checkout -b p8
+    edit number of release: alt1 -> alt0.M80P.1 (vim corebird.spec)
+    $ add_changelog -e '- Backported to p8 branch' corebird.spec
+    $ gear-commit -a
+    $ gear-create-tag
+    $ git push up p8 `git describe`
+    $ ssh gyle.alt build -b p8 corebird `git describe`
