@@ -10,6 +10,9 @@ Gitrhub:
 Last version:
     1.4.2
 
+Sisyphus:
+    https://packages.altlinux.org/ru/Sisyphus/srpms/corebird
+
 Journal of first building:
     cloned the repo and tried to build
     it asked command autoconf and aclocal
