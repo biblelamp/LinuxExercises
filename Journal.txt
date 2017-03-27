@@ -16,3 +16,12 @@ I restore my access as maintainer in ALT Linux
 Mar 15, 2017
 
 I started to write notes of the mainteiner about my current experiens in ALT Linux
+
+21 Mar, 2017
+
+I have built my 3th package http://sisyphus.ru/ru/srpm/Sisyphus/corebird for ALT Linux. But after six years of pause this third - as the first. Thanks to my mentor Gleb Fotengauer-Malinovsky - without his help I would not have managed.
+
+Mar 25, 2017
+
+I have publish my first article "Notes of the mainteiner: resurrection" (RU)
+https://habrahabr.ru/post/324692/
