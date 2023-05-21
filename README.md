@@ -17,6 +17,9 @@ https://itsoft.ru/data-center/faq/linux/install-apache/
 https://www.digitalocean.com/community/tutorials/how-to-install-the-apache-web-server-on-centos-7-ru
 https://help.reg.ru/support/servery-vps/oblachnyye-servery/ustanovka-programmnogo-obespecheniya/ustanovka-apache-na-centos-7
 
+## Getting Free Servers in Oracle Cloud Free Tier(RU)
+https://habr.com/ru/post/541466/
+
 ## 4 ways to check the version of CentOS at the Linux command line (RU)
 https://andreyex.ru/operacionnaya-sistema-linux/4-sposoba-proverki-versii-centos-v-komandnoj-stroke-linux/
 
