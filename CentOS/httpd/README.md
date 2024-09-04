@@ -37,3 +37,8 @@ sudo firewall-cmd --permanent --add-service=https
 ```
 sudo firewall-cmd --reload
 ```
+
+### Creating and configuring virtual hosts
+```
+sudo mkdir -p /var/www/example.com/html
+```
