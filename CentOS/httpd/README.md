@@ -13,16 +13,16 @@ sudo enable httpd
 ```
 <!DOCTYPE html>
 <html>
-    <head>
+  <head>
     <title>Welcome to Apache server</title>
-    </head>
-    <body>
-        <p>Welcome to Apache server</p>
-    </body>
+  </head>
+  <body>
+    <p>Welcome to Apache server</p>
+  </body>
 </html>
 ```
 
-### Place this file in the required directory
+### Place this file to the required directory
 ```
 cd /var/www/html
 ```
@@ -43,4 +43,19 @@ sudo firewall-cmd --reload
 Creating a folder for **example.com** virtual host files:
 ```
 sudo mkdir -p /var/www/example.com/html
+```
+Creating a **index.html** page for a virtual host:
+```
+<html>
+  <head>
+    <title>Welcome to Example.com!</title>
+  </head>
+  <body>
+    <p>Success! The example.com virtual host is working!</p>
+  </body>
+</html>
+```
+Place index.html file to the required directory:
+```
+cd /var/www/example.com/html/
 ```
