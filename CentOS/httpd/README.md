@@ -27,7 +27,7 @@ sudo enable httpd
 cd /var/www/html
 ```
 
-## Opening firewall ports (if necessary)
+## Opening firewall ports (if necessary: http and https)
 ```
 sudo firewall-cmd --permanent --add-service=http
 ```
@@ -55,7 +55,21 @@ Creating a **index.html** page for a virtual host:
   </body>
 </html>
 ```
-Place index.html file to the required directory:
+Place **index.html** file to the suitable directory:
 ```
 cd /var/www/example.com/html/
+```
+Creating a virtual host configuration file **example.com.conf**:
+```
+<VirtualHost *:80>
+    ServerName example.com
+    ServerAlias www.example.com
+    DocumentRoot /var/www/example.com/html
+    ErrorLog /var/www/example.com/log/error.log
+    CustomLog /var/www/example.com/log/requests.log combined
+</VirtualHost>
+```
+Place the configuration file to the suitable directory:
+```
+cd /etc/httpd/conf.d/
 ```
