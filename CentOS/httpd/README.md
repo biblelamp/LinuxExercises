@@ -3,13 +3,13 @@
 sudo yum install httpd 
 ```
 
-### To starting and enabling Apache services
+## To starting and enabling Apache services
 ```
 sudo systemctl start httpd
 sudo enable httpd
 ```
 
-### To create index.html
+To create index.html for index page:
 ```
 <!DOCTYPE html>
 <html>
@@ -22,12 +22,12 @@ sudo enable httpd
 </html>
 ```
 
-### Place this file to the required directory
+Place this file to the required directory:
 ```
 cd /var/www/html
 ```
 
-## Opening firewall ports (if necessary: http and https)
+### Opening firewall ports (if necessary: http and https)
 ```
 sudo firewall-cmd --permanent --add-service=http
 ```
@@ -44,6 +44,7 @@ Creating a folder for **example.com** virtual host files:
 ```
 sudo mkdir -p /var/www/example.com/html
 ```
+
 Creating a **index.html** page for a virtual host:
 ```
 <html>
@@ -55,10 +56,12 @@ Creating a **index.html** page for a virtual host:
   </body>
 </html>
 ```
+
 Place **index.html** file to the suitable directory:
 ```
 cd /var/www/example.com/html/
 ```
+
 Creating a virtual host configuration file **example.com.conf**:
 ```
 <VirtualHost *:80>
@@ -69,6 +72,7 @@ Creating a virtual host configuration file **example.com.conf**:
     CustomLog /var/www/example.com/log/requests.log combined
 </VirtualHost>
 ```
+
 Place the configuration file to the suitable directory:
 ```
 cd /etc/httpd/conf.d/
